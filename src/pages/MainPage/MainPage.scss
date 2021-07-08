@@ -1,0 +1,121 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+body {
+  background-color: #1a191f;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
+.header__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  height: 3rem;
+}
+
+.header__logo {
+  font-size: 2rem;
+  color: #ffffff;
+}
+
+.header__search {
+  padding: .5rem;
+  border: 2px solid #1a191f;
+  border-radius: 5px;
+  outline: none;
+}
+
+.movies {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.movie {
+  width: 17rem;
+  margin: .7rem;
+  position: relative;
+}
+
+.movie__cover-inner {
+  position: relative;
+  height: 25rem;
+}
+
+.movie__cover {
+  max-width: 100%;
+  height: 100%;
+}
+
+.movie__cover--darkened {
+  background-color: #000000;
+  max-width: 100%;
+  height: 100%;
+  opacity: .1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.movie__cover--darkened:hover {
+  background-color: gray;
+  cursor: pointer;
+}
+
+.movie__info {
+  padding: .8rem 0;
+}
+
+.movie__title {
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.movie__category {
+  font-size: .9rem;
+  color: #ffd80e;
+}
+
+.movie__average {
+  position: absolute;
+  top: .8rem;
+  left: .8rem;
+  right: 0;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a191f;
+  color: #ffffff;
+  font-size: .9rem;
+}
+
+.movie__average--green {
+  border: 2px solid green;
+}
+
+.movie__average--orange {
+  border: 1px solid orange;
+}
+
+.movie__average--red {
+  border: 1px solid red;
+}
+
+.movie__average--expectation {
+  border: 1px solid aliceblue;
+}

@@ -2,14 +2,15 @@ import React, {useEffect, useReducer} from 'react';
 import axios from 'axios';
 import {ThemeProvider} from "styled-components";
 
-import socket from './socket';
-import reducer from './reducer';
-import {darkTheme, lightTheme} from './components/Theme';
-import {useDarkMode} from './components/useDarkMode';
-import JoinBlock from './components/JoinBlock';
-import Chat from './components/Chat';
-import {GlobalStyles} from "./components/GlobalStyles";
-import Toggle from "./components/Toggler";
+import socket from './sockets/socket';
+import reducer from './reducers/reducer';
+import {darkTheme, lightTheme} from './constants/Theme';
+import {useDarkMode} from './hooks/useDarkMode';
+import {Chat} from './modules';
+import {JoinBlock} from './pages';
+import {GlobalStyles} from "./styles/GlobalStyles";
+import {Toggle} from './components';
+import AppRouter from "./routes/AppRouter";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, {
@@ -56,20 +57,23 @@ function App() {
 
   window.socket = socket;
 
-  if(!mountedComponent) return <div/>
+  if (!mountedComponent) return <div/>
   return (
-    <ThemeProvider  theme={themeMode}>
-        <GlobalStyles/>
-        <div className="wrapper">
-          <Toggle theme={theme} toggleTheme={themeToggler}/>
-          {!state.joined ? (
-            <JoinBlock onLogin={onLogin}/>
-          ) : (
-            <Chat {...state} onAddMessage={addMessage}/>
-          )}
-        </div>
+    // <AppRouter/>
+    <ThemeProvider theme={themeMode}>
+      <GlobalStyles/>
+      <div className="wrapper">
+        <Toggle theme={theme} toggleTheme={themeToggler}/>
+        {!state.joined ? (
+          <JoinBlock onLogin={onLogin}/>
+        ) : (
+          <Chat {...state} onAddMessage={addMessage}/>
+        )}
+      </div>
     </ThemeProvider>
   );
 }
 
 export default App;
+
+// <Chat {...state} onAddMessage={addMessage}/>

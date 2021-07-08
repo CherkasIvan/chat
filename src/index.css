@@ -10,9 +10,12 @@ html, body {
 }
 
 .wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   max-width: 40%;
-  margin: 100px auto;
-  min-width: 720px;
+  margin: auto;
 }
 
 .join-block {
@@ -39,6 +42,7 @@ html, body {
 
 .chat {
   display: flex;
+  justify-content: flex-end;
   height: 500px;
   border: 1px solid rgba(159, 183, 197, 0.2);
   background-color: #ffffff;
@@ -68,7 +72,7 @@ html, body {
 }
 
 .message {
-  margin-bottom: 20px;
+  margin: 0 0 1.2rem 1.2rem;
 }
 
 .message p {
@@ -111,3 +115,4 @@ html, body {
   width: 100%;
   margin-bottom: 10px;
 }
+

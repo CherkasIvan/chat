@@ -1,40 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
-import styled from "styled-components";
 
-import socket from '../socket';
-
-const SendButton = styled.button`
-  background: ${({theme}) => theme.sendButtonBackground};
-  cursor: pointer;
-}`;
-
-const Textarea = styled.textarea`
-  background: ${({theme}) => theme.textAreaBackground};
-  color: ${({theme}) => theme.inputText};
-  font-size: .8rem;
-  padding: .6rem;
-
-  &:focus {
-    background: ${({theme}) => theme.textAreaBackground};
-  }`;
-
-const NavBar = styled.div`
-  &.chat-users {
-    background: ${({theme}) => theme.textAreaBackground};
-  }
-}`;
-
-const Message = styled.p`
-  &.message-item {
-    background: ${({theme}) => theme.sendMessageBackground};
-  }
-}`;
-
-const MessageBoard = styled.div`
-  &.messages {
-    background: ${({theme}) => theme.sendMessageBoardBackground};
-  }
-}`;
+import {SendButton, Textarea, NavBar, Message, MessageBoard} from "./ChatStyles";
+import socket from '../../sockets/socket';
 
 function Chat({users, messages, userName, roomId, onAddMessage}) {
   const [messageValue, setMessageValue] = useState('');

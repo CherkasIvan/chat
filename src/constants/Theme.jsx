@@ -16,10 +16,10 @@ export const lightTheme = {
 
 export const darkTheme = {
   body: '#363537',
-  text: '#FAFAFA',
+  text: '#fcff61',
   inputText: '#363537',
   toggleBorder: '#6B8096',
-  background: '#999',
+  background: 'linear-gradient(#363537, #FAFAFA) no-repeat;',
   inputBackground: '#e8e8e8',
   textAreaBackground: '#f0f3fc',
   navBarBackground: '#f0f3fc',
@@ -28,4 +28,18 @@ export const darkTheme = {
   sendMessageBoardBackground: '#f0f3fc',
   sendButtonBackground: '#3653bf',
   sendMessageBackground: '#3653bf',
+}
+
+export const lightToggle = {
+  body: '#E2E2E2',
+  text: '#363537',
+  toggleBorder: '#FFF',
+  gradient: 'linear-gradient(#39598A, #79D7ED)',
+}
+
+export const darkToggle = {
+  body: '#363537',
+  text: '#FAFAFA',
+  toggleBorder: '#6B8096',
+  gradient: 'linear-gradient(#091236, #1E215D)',
 }

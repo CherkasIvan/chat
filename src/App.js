@@ -1,20 +1,26 @@
-import React from 'react';
+import React, {useEffect, useReducer} from 'react';
 import axios from 'axios';
+import {ThemeProvider} from "styled-components";
 
 import socket from './socket';
-
 import reducer from './reducer';
+import {darkTheme, lightTheme} from './components/Theme';
+import {useDarkMode} from './components/useDarkMode';
 import JoinBlock from './components/JoinBlock';
 import Chat from './components/Chat';
+import {GlobalStyles} from "./components/GlobalStyles";
+import Toggle from "./components/Toggler";
 
 function App() {
-  const [state, dispatch] = React.useReducer(reducer, {
+  const [state, dispatch] = useReducer(reducer, {
     joined: false,
     roomId: null,
     userName: null,
     users: [],
     messages: [],
   });
+  const [theme, themeToggler, mountedComponent] = useDarkMode();
+  const themeMode = theme === 'light' ? lightTheme : darkTheme
 
   const onLogin = async (obj) => {
     dispatch({
@@ -22,7 +28,7 @@ function App() {
       payload: obj,
     });
     socket.emit('ROOM:JOIN', obj);
-    const { data } = await axios.get(`/rooms/${obj.roomId}`);
+    const {data} = await axios.get(`/rooms/${obj.roomId}`);
     dispatch({
       type: 'SET_DATA',
       payload: data,
@@ -43,21 +49,26 @@ function App() {
     });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     socket.on('ROOM:SET_USERS', setUsers);
     socket.on('ROOM:NEW_MESSAGE', addMessage);
   }, []);
 
   window.socket = socket;
 
+  if(!mountedComponent) return <div/>
   return (
-    <div className="wrapper">
-      {!state.joined ? (
-        <JoinBlock onLogin={onLogin} />
-      ) : (
-        <Chat {...state} onAddMessage={addMessage} />
-      )}
-    </div>
+    <ThemeProvider  theme={themeMode}>
+        <GlobalStyles/>
+        <div className="wrapper">
+          <Toggle theme={theme} toggleTheme={themeToggler}/>
+          {!state.joined ? (
+            <JoinBlock onLogin={onLogin}/>
+          ) : (
+            <Chat {...state} onAddMessage={addMessage}/>
+          )}
+        </div>
+    </ThemeProvider>
   );
 }
 

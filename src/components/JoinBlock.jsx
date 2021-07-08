@@ -1,10 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
+import styled from "styled-components";
+
+const Button = styled.button`
+  background: ${({theme}) => theme.background};
+  border: 2px solid ${({theme}) => theme.toggleBorder};
+  color: ${({theme}) => theme.text};
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: .8rem;
+  padding: .6rem;
+}`;
+
+const Input = styled.input`
+  background: ${({theme}) => theme.inputBackground};
+  border: 2px solid ${({theme}) => theme.toggleBorder};
+  color: ${({theme}) => theme.inputText};
+  border-radius: 30px;
+  font-size: .8rem;
+  padding: .6rem;
+}`;
 
 function JoinBlock({ onLogin }) {
-  const [roomId, setRoomId] = React.useState('');
-  const [userName, setUserName] = React.useState('');
-  const [isLoading, setLoading] = React.useState(false);
+  const [roomId, setRoomId] = useState('');
+  const [userName, setUserName] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   const onEnter = async () => {
     if (!roomId || !userName) {
@@ -21,21 +41,21 @@ function JoinBlock({ onLogin }) {
 
   return (
     <div className="join-block">
-      <input
+      <Input
         type="text"
         placeholder="Room ID"
         value={roomId}
-        onChange={(e) => setRoomId(e.target.value)}
+        onChange={(element) => setRoomId(element.target.value)}
       />
-      <input
+      <Input
         type="text"
         placeholder="Ваше имя"
         value={userName}
-        onChange={(e) => setUserName(e.target.value)}
+        onChange={(element) => setUserName(element.target.value)}
       />
-      <button disabled={isLoading} onClick={onEnter} className="btn btn-success">
+      <Button disabled={isLoading} onClick={onEnter} className="btn btn-success">
         {isLoading ? 'ВХОД...' : 'ВОЙТИ'}
-      </button>
+      </Button>
     </div>
   );
 }

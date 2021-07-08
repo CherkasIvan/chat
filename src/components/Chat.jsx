@@ -1,9 +1,44 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
+import styled from "styled-components";
+
 import socket from '../socket';
 
-function Chat({ users, messages, userName, roomId, onAddMessage }) {
-  const [messageValue, setMessageValue] = React.useState('');
-  const messagesRef = React.useRef(null);
+const SendButton = styled.button`
+  background: ${({theme}) => theme.sendButtonBackground};
+  cursor: pointer;
+}`;
+
+const Textarea = styled.textarea`
+  background: ${({theme}) => theme.textAreaBackground};
+  color: ${({theme}) => theme.inputText};
+  font-size: .8rem;
+  padding: .6rem;
+
+  &:focus {
+    background: ${({theme}) => theme.textAreaBackground};
+  }`;
+
+const NavBar = styled.div`
+  &.chat-users {
+    background: ${({theme}) => theme.textAreaBackground};
+  }
+}`;
+
+const Message = styled.p`
+  &.message-item {
+    background: ${({theme}) => theme.sendMessageBackground};
+  }
+}`;
+
+const MessageBoard = styled.div`
+  &.messages {
+    background: ${({theme}) => theme.sendMessageBoardBackground};
+  }
+}`;
+
+function Chat({users, messages, userName, roomId, onAddMessage}) {
+  const [messageValue, setMessageValue] = useState('');
+  const messagesRef = useRef(null);
 
   const onSendMessage = () => {
     socket.emit('ROOM:NEW_MESSAGE', {
@@ -11,46 +46,46 @@ function Chat({ users, messages, userName, roomId, onAddMessage }) {
       roomId,
       text: messageValue,
     });
-    onAddMessage({ userName, text: messageValue });
+    onAddMessage({userName, text: messageValue});
     setMessageValue('');
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     messagesRef.current.scrollTo(0, 99999);
   }, [messages]);
 
   return (
     <div className="chat">
-      <div className="chat-users">
+      <NavBar className="chat-users">
         Комната: <b>{roomId}</b>
-        <hr />
+        <hr/>
         <b>Онлайн ({users.length}):</b>
         <ul>
           {users.map((name, index) => (
             <li key={name + index}>{name}</li>
           ))}
         </ul>
-      </div>
+      </NavBar>
       <div className="chat-messages">
-        <div ref={messagesRef} className="messages">
+        <MessageBoard ref={messagesRef} className="messages">
           {messages.map((message) => (
             <div className="message">
-              <p>{message.text}</p>
+              <Message className="message-item">{message.text}</Message>
               <div>
                 <span>{message.userName}</span>
               </div>
             </div>
           ))}
-        </div>
+        </MessageBoard>
         <form>
-          <textarea
+          <Textarea
             value={messageValue}
             onChange={(e) => setMessageValue(e.target.value)}
             className="form-control"
-            rows="3"></textarea>
-          <button onClick={onSendMessage} type="button" className="btn btn-primary">
+            rows="3"></Textarea>
+          <SendButton onClick={onSendMessage} type="button" className="btn btn-primary">
             Отправить
-          </button>
+          </SendButton>
         </form>
       </div>
     </div>

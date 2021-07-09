@@ -35,7 +35,7 @@ function JoinBlock({ onLogin }) {
         value={userName}
         onChange={(element) => setUserName(element.target.value)}
       />
-      <Button disabled={isLoading} onClick={onEnter} className="btn btn-success">
+      <Button disabled={isLoading} onClick={onEnter} className="btn btn-primary">
         {isLoading ? 'PENDING...' : 'ENTER'}
       </Button>
     </div>

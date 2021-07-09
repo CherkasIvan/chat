@@ -1,10 +1,15 @@
 import React from 'react'
-import {func, string} from 'prop-types'
-import {Button} from "./TogglerStyled";
+import { func, string } from 'prop-types';
+import { Sun, Moon } from '../../assets';
+import {ToggleContainer} from "./ToggleStyled";
 
-const Toggle = ({theme, toggleTheme}) => {
+const Toggle = ({ theme, toggleTheme }) => {
+  const isLight = theme === 'light';
   return (
-    <Button onClick={toggleTheme} className='btn btn-info'>switch theme</Button>
+    <ToggleContainer lightTheme={isLight} onClick={toggleTheme}>
+      <Sun/>
+      <Moon/>
+    </ToggleContainer>
   );
 };
 

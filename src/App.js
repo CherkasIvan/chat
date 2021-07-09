@@ -1,19 +1,18 @@
-import React, {useEffect, useReducer} from 'react';
+import React, {useEffect, useReducer } from 'react';
 import axios from 'axios';
 import {ThemeProvider} from "styled-components";
 
 import socket from './sockets/socket';
 import reducer from './reducers/reducer';
 import {darkTheme, lightTheme} from './constants/Theme';
-import {useDarkMode} from './hooks/useDarkMode';
 import {Chat} from './modules';
 import {JoinBlock} from './pages';
 import {GlobalStyles} from "./styles/GlobalStyles";
+import {useDarkMode} from './hooks/useDarkMode';
 import {Toggle} from './components';
-import AppRouter from "./routes/AppRouter";
-
 
 function App() {
+  const [theme, toggleTheme, componentMounted] = useDarkMode();
   const [state, dispatch] = useReducer(reducer, {
     joined: false,
     roomId: null,
@@ -21,8 +20,8 @@ function App() {
     users: [],
     messages: [],
   });
-  const [theme, themeToggler, mountedComponent] = useDarkMode();
-  const themeMode = theme === 'light' ? lightTheme : darkTheme
+
+  const themeMode = theme === 'light' ? lightTheme : darkTheme;
 
   const onLogin = async (obj) => {
     dispatch({
@@ -58,15 +57,15 @@ function App() {
 
   window.socket = socket;
 
-  if (!mountedComponent) return <div/>
+  if (!componentMounted) {
+    return <div />
+  };
   return (
     // <AppRouter/>
     <ThemeProvider theme={themeMode}>
       <GlobalStyles/>
       <div className="wrapper">
-        <Toggle
-          theme={theme}
-          toggleTheme={themeToggler}/>
+        <Toggle theme={theme} toggleTheme={toggleTheme} />
         {!state.joined ? (
           <JoinBlock onLogin={onLogin}/>
         ) : (

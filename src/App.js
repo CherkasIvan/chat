@@ -12,6 +12,7 @@ import {GlobalStyles} from "./styles/GlobalStyles";
 import {Toggle} from './components';
 import AppRouter from "./routes/AppRouter";
 
+
 function App() {
   const [state, dispatch] = useReducer(reducer, {
     joined: false,
@@ -63,7 +64,9 @@ function App() {
     <ThemeProvider theme={themeMode}>
       <GlobalStyles/>
       <div className="wrapper">
-        <Toggle theme={theme} toggleTheme={themeToggler}/>
+        <Toggle
+          theme={theme}
+          toggleTheme={themeToggler}/>
         {!state.joined ? (
           <JoinBlock onLogin={onLogin}/>
         ) : (

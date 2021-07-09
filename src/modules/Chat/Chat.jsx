@@ -24,9 +24,9 @@ function Chat({users, messages, userName, roomId, onAddMessage}) {
   return (
     <div className="chat">
       <NavBar className="chat-users">
-        Комната: <b>{roomId}</b>
+        Room: <b>{roomId}</b>
         <hr/>
-        <b>Онлайн ({users.length}):</b>
+        <b>Online {users.length}:</b>
         <ul>
           {users.map((name, index) => (
             <li key={name + index}>{name}</li>
@@ -51,7 +51,7 @@ function Chat({users, messages, userName, roomId, onAddMessage}) {
             className="form-control"
             rows="3"></Textarea>
           <SendButton onClick={onSendMessage} type="button" className="btn btn-primary">
-            Отправить
+            Send message
           </SendButton>
         </form>
       </div>

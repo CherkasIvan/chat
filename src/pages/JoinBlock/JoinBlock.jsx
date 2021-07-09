@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import {Button, Input} from "./JoinBlockStyles";
 
-function JoinBlock({ onLogin }) {
+function JoinBlock({ onLogin, children }) {
   const [roomId, setRoomId] = useState('');
   const [userName, setUserName] = useState('');
   const [isLoading, setLoading] = useState(false);
@@ -23,6 +23,7 @@ function JoinBlock({ onLogin }) {
 
   return (
     <div className="join-block">
+      {children}
       <Input
         type="text"
         placeholder="Room ID"

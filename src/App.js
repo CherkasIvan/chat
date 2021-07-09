@@ -6,7 +6,7 @@ import socket from './sockets/socket';
 import reducer from './reducers/reducer';
 import {darkTheme, lightTheme} from './constants/Theme';
 import {Chat} from './modules';
-import {JoinBlock} from './pages';
+import {JoinBlock, MainPage} from './pages';
 import {GlobalStyles} from "./styles/GlobalStyles";
 import {useDarkMode} from './hooks/useDarkMode';
 import {Toggle} from './components';
@@ -65,11 +65,17 @@ function App() {
     <ThemeProvider theme={themeMode}>
       <GlobalStyles/>
       <div className="wrapper">
-        <Toggle theme={theme} toggleTheme={toggleTheme} />
+
         {!state.joined ? (
-          <JoinBlock onLogin={onLogin}/>
+          <JoinBlock onLogin={onLogin}>
+            <Toggle theme={theme} toggleTheme={toggleTheme} />
+          </JoinBlock>
         ) : (
-          <Chat {...state} onAddMessage={addMessage}/>
+          <MainPage>
+            <Toggle theme={theme} toggleTheme={toggleTheme} />
+            {/*<Chat {...state} onAddMessage={addMessage}/>*/}
+          </MainPage>
+
         )}
       </div>
     </ThemeProvider>
